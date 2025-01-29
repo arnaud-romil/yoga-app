@@ -62,7 +62,7 @@ class AuthControllerTest {
     @DisplayName("allow user to register")
     void shouldAllowUserToRegister() {
         SignupRequest signupRequest = new SignupRequest();
-        signupRequest.setEmail("new.user@test.com");
+        signupRequest.setEmail("unregistered@test.com");
         signupRequest.setFirstName("UserFirstName");
         signupRequest.setLastName("UserLastName");
         signupRequest.setPassword("User-Password");
