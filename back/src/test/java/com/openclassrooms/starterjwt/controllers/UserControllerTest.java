@@ -34,6 +34,14 @@ class UserControllerTest {
     private UserRepository userRepository;
 
     @Test
+    @DisplayName("return unauthorized status if user is unauthenticated")
+    void shouldReturnUnauthorizedStatusIfUserIsUnauthenticated() throws Exception {
+
+        mockMvc.perform(get("/api/user/1"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     @WithMockUser(username = "yoga@studio.com")
     @DisplayName("find user by id")
     void shouldFindUserById() throws Exception {
