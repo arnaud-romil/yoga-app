@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe('Login spec', () => {
 
   function fillLoginForm(): void {
@@ -30,7 +31,7 @@ describe('Login spec', () => {
         method: 'GET',
         url: '/api/session',
       },
-      []).as('session')
+      []).as('sessions')
 
     fillLoginForm();
     submitLoginForm();

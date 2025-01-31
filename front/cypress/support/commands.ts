@@ -41,14 +41,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+/// <reference types="cypress" />
 
 declare namespace Cypress {
     interface Chainable {
-        login(): void;
+        login(isAdmin: boolean, sessions: []): Chainable<void>;
     }
 }
 
-Cypress.Commands.add('login', (): void => {
+Cypress.Commands.add('login', (isAdmin: boolean, sessions: []): void => {
     cy.visit('/login');
 
     cy.intercept('POST', '/api/auth/login', {
@@ -57,7 +58,7 @@ Cypress.Commands.add('login', (): void => {
             username: 'userName',
             firstName: 'firstName',
             lastName: 'lastName',
-            admin: true
+            admin: isAdmin
         },
     });
 
@@ -66,7 +67,7 @@ Cypress.Commands.add('login', (): void => {
             method: 'GET',
             url: '/api/session',
         },
-        []).as('session');
+        sessions).as('sessions');
 
     cy.get('input[formControlName=email]').type("yoga@studio.com");
     cy.get('input[formControlName=password]').type("test!1234");
